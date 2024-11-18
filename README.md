@@ -4,6 +4,10 @@ Miuul Final Project: Top Ten Stays
 
 This project focuses on analyzing and ranking the top ten stays based on various criteria such as customer reviews and ratings. It involves the use of Python for data processing, analysis, and visualization. The project is structured to provide an end-to-end solution from data extraction to the deployment of production-ready code.
 
+## Data Source
+The dataset used in this project is available on Kaggle: [515K Hotel Reviews Data in Europe](https://www.kaggle.com/datasets/jiashenliu/515k-hotel-reviews-data-in-europe/data).
+
+
 📁 Repository Structure
 Here is the structure of the repository:
 
