@@ -188,11 +188,6 @@ recommend_hotels(Final_df, "France", nationality="United Kingdom")
 
 
 
-#st.logo(
- #   "Images/Logo2.png",
- #   icon_image="Images/logo.png",
- #   size="large")
-
 
 
 
