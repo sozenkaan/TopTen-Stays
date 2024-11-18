@@ -1,5 +1,7 @@
 Miuul Final Project: Top Ten Stays
+
 📌 Project Description
+
 This project focuses on analyzing and ranking the top ten stays based on various criteria such as customer reviews and ratings. It involves the use of Python for data processing, analysis, and visualization. The project is structured to provide an end-to-end solution from data extraction to the deployment of production-ready code.
 
 📁 Repository Structure
