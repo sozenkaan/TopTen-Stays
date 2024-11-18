@@ -16,15 +16,25 @@ Miuul Final Project/
 │   └── Hotel_reviews.py          # Dataset processing script
 
 ├── Images/
+
 │   ├── Images-1.jpeg             # Visualizations and graphs
+
 │   ├── Images-2.jpeg
+
 │   ├── Images-3.jpeg
+
 │   ├── Images-4.jpeg
+
 │   ├── Images-5.jpeg
+
 │   └── Images-6.jpeg
+
 ├── ProductionCode/
+
 │   └── Start_App.py              # Deployment script
+
 ├── LICENSE                       # License for the project
+
 └── README.md                     # Project documentation
 
 🚀 Features
