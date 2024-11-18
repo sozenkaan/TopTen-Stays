@@ -6,10 +6,15 @@ This project focuses on analyzing and ranking the top ten stays based on various
 Here is the structure of the repository:
 
 Miuul Final Project/
+
 ├── Codes/
+
 │   └── FinalProjectCode.py       # Main project code
+
 ├── Dataset/
+
 │   └── Hotel_reviews.py          # Dataset processing script
+
 ├── Images/
 │   ├── Images-1.jpeg             # Visualizations and graphs
 │   ├── Images-2.jpeg
