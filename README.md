@@ -24,17 +24,17 @@ Miuul Final Project/
 
 ├── Images/
 
-│   ├── Images-1.jpeg             # Visualizations and graphs
+│   ├── Images1.png             # Visualizations and graphs
 
-│   ├── Images-2.jpeg
+│   ├── Images2.png
 
-│   ├── Images-3.jpeg
+│   ├── Images3.png
 
-│   ├── Images-4.jpeg
+│   ├── Images4.png
 
-│   ├── Images-5.jpeg
+│   ├── Icon1.png
 
-│   └── Images-6.jpeg
+│   └── Icon2.png
 
 ├── ProductionCode/
 
