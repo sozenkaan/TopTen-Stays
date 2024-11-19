@@ -11,17 +11,16 @@ import seaborn as sns
 import plotly.express as px
 
 st.logo(
-    "Kaggle_Hotel/Görsel/icon1.png", size="large",
-    icon_image="Kaggle_Hotel/Görsel/icon_s_1.png"
+    "Miuul Final Project/Images/Icon2.png", size="large",
+    icon_image="Miuul Final Project/Images/Icon1.png"
 )
-#layout="wide"
 st.set_page_config(layout="wide", page_title="TopTen Stays", page_icon="🏨")
 st.title(":orange[TopTen Stays]🥂🌇")
 home_tab, data_tab, recomandations_tab = st.tabs(["Home", "Data", "Recomandations"])
 Empty_1, image_left, image_right, Empty_2 = home_tab.columns([4,6,5,4], gap="small")
 
-image_left.image("Kaggle_Hotel/Görsel/dikdötgen.png",width=360)
-image_right.image("Kaggle_Hotel/Görsel/karcik.png",width=450)
+image_left.image("Miuul Final Project/Images/Image1.png",width=360)
+image_right.image("Miuul Final Project/Images/Image2.png",width=450)
 image_right.subheader(":orange[  Discover the top 10 hotels in the 6 best capitals of Europe!]")
 image_right.markdown(""" 
 
@@ -32,7 +31,7 @@ Whether you're looking for accommodations rated by travelers from your own count
 For trips to the **_United Kingdom, Spain, France, the Netherlands, Austria, or Italy_**, we’ll recommend the top 10 hotels in each capital to make your stay unforgettable.
 
 """)
-image_right.image("Kaggle_Hotel/Görsel/toplar.png",width=400)
+image_right.image("Miuul Final Project/Images/Image3.png",width=400)
 
 
 # Başlık ve kısa tanıtım
@@ -40,7 +39,7 @@ st.sidebar.title(":orange[Discover Your Ideal Stay!] 🌍")
 st.sidebar.markdown("Explore top-rated hotels across Europe’s best destinations.")
 
 # Bilgilendirici görsel
-st.sidebar.image("Kaggle_Hotel/Görsel/otel.png", caption="Find the best hotels for an unforgettable stay.", use_container_width=True)
+st.sidebar.image("Miuul Final Project/Images/Image4.png", caption="Find the best hotels for an unforgettable stay.", use_container_width=True)
 
 # Popüler Destinasyonlar
 st.sidebar.markdown("### Top Destinations")
@@ -67,9 +66,13 @@ data_tab.subheader("This dataset contains 515,000 customer reviews and scoring o
 
 @st.cache_data
 def get_data(nation_x = ["United Kingdom"]):
-    df = pd.read_csv("Kaggle_Hotel/Hotel_Reviews.csv")
-    df = df.drop(columns=["Review_Date", "Review_Total_Negative_Word_Counts", "Review_Total_Positive_Word_Counts",
-                          "Total_Number_of_Reviews_Reviewer_Has_Given","Tags" , "lat", "lng"], axis=1)
+    file_paths = [
+    "Miuul Final Project/Datasets/Hotel_Reviews1.xlsx",
+    "Miuul Final Project/Datasets/Hotel_Reviews2.xlsx",
+    "Miuul Final Project/Datasets/Hotel_Reviews3.xlsx"
+]
+dfs = [pd.read_excel(file) for file in file_paths]
+df = pd.concat(dfs, ignore_index=True)
 
     scaler = MinMaxScaler(feature_range=(0, 5))
     df['Reviewer_Score'] = scaler.fit_transform(df[['Reviewer_Score']])
@@ -272,9 +275,14 @@ data_tab.plotly_chart(fig1, use_container_width=True)
 ####recomandations_tab####
 @st.cache_data
 def get_data_1():
-    df = pd.read_csv("Kaggle_Hotel/Hotel_Reviews.csv")
-    df = df.drop(columns=["Review_Date", "Review_Total_Negative_Word_Counts", "Review_Total_Positive_Word_Counts",
-                          "Total_Number_of_Reviews_Reviewer_Has_Given","Tags" , "lat", "lng"], axis=1)
+   file_paths = [
+    "Miuul Final Project/Datasets/Hotel_Reviews1.xlsx",
+    "Miuul Final Project/Datasets/Hotel_Reviews2.xlsx",
+    "Miuul Final Project/Datasets/Hotel_Reviews3.xlsx"
+]
+dfs = [pd.read_excel(file) for file in file_paths]
+df = pd.concat(dfs, ignore_index=True)
+
 
     scaler = MinMaxScaler(feature_range=(0, 5))
     df['Reviewer_Score'] = scaler.fit_transform(df[['Reviewer_Score']])
@@ -416,9 +424,14 @@ df_1= get_data_1()
 
 @st.cache_data
 def df_Creator_for_nation ():
-    df = pd.read_csv("Kaggle_Hotel/Hotel_Reviews.csv")
-    df = df.drop(columns=["Review_Date", "Review_Total_Negative_Word_Counts", "Review_Total_Positive_Word_Counts",
-                          "Total_Number_of_Reviews_Reviewer_Has_Given", "lat", "lng"], axis=1)
+    file_paths = [
+    "Miuul Final Project/Datasets/Hotel_Reviews1.xlsx",
+    "Miuul Final Project/Datasets/Hotel_Reviews2.xlsx",
+    "Miuul Final Project/Datasets/Hotel_Reviews3.xlsx"
+]
+dfs = [pd.read_excel(file) for file in file_paths]
+df = pd.concat(dfs, ignore_index=True)
+
     df["Reviewer_Nationality"] = df["Reviewer_Nationality"].str.strip().str.strip("'\"")
     return df
 
@@ -435,7 +448,6 @@ def top_10_hotels_by_country_filtered(dataframe, Country_name, nation_selected=F
     # Ülkeye göre filtreleme
     Country_hotels = dataframe[dataframe['Country_name'] == Country_name]
 
-    # Eğer nation seçildiyse, Nation_Based_Weighted_Score sütunu dahil edilir
     if nation_selected:
         selected_columns = [
             "Hotel_Name", 'Hotel_Address', 'Nation_Based_Weighted_Score',
@@ -451,13 +463,10 @@ def top_10_hotels_by_country_filtered(dataframe, Country_name, nation_selected=F
 
     top_10_hotels = Country_hotels[selected_columns].sort_values(by="hybrid_sorting_score", ascending=False).head(10)
 
-
-    # Yuvarlama işlemi
     if 'Nation_Based_Weighted_Score' in top_10_hotels.columns:
         top_10_hotels['Nation_Based_Weighted_Score'] = top_10_hotels['Nation_Based_Weighted_Score'].round(2)
     top_10_hotels['hybrid_sorting_score'] = top_10_hotels['hybrid_sorting_score'].round(2)
 
-    # Sütun isimlerini değiştirme
     rename_columns = {
         "Hotel_Name": "Hotel Name",
         'Hotel_Address': 'Address',
@@ -468,26 +477,22 @@ def top_10_hotels_by_country_filtered(dataframe, Country_name, nation_selected=F
         'hybrid_sorting_score': 'Score',
         'Country_name': 'Country'
     }
-    # Mevcut sütunlarla eşleşen sütunları yeniden adlandır
+   
     top_10_hotels = top_10_hotels.rename(columns={k: v for k, v in rename_columns.items() if k in top_10_hotels.columns})
 
-    # Reset index ve ardından 1'den başlat
     top_10_hotels.reset_index(drop=True, inplace=True)
     top_10_hotels.index = top_10_hotels.index + 1
 
     return top_10_hotels
 
 
-
-
-# Kullanıcı seçimleri
 user_selected_nation = recomandations_tab.selectbox(
     "Select a nation",
     options=["All Nations"] + country_counts_head.Reviewer_Nationality.unique().tolist()
 )
 
 if user_selected_nation == "All Nations":
-    user_selected_nation = None  # "All Nations" seçilmişse nation seçimini devre dışı bırak
+    user_selected_nation = None  
 
 user_selected_country = recomandations_tab.selectbox("Select a country",
                                                      options=df
@@ -495,8 +500,7 @@ user_selected_country = recomandations_tab.selectbox("Select a country",
                                                      .unique())
 
 if recomandations_tab.button("List Hotels", use_container_width=True, icon="🥂"):
-    if user_selected_nation:  # Eğer bir nation seçilmişse
-        # Kullanıcının seçtiği ülkeye ve nation'a göre filtrele
+    if user_selected_nation:  
         df_reviews_filtered = get_data(nation_x=[user_selected_nation])
         top_hotels = top_10_hotels_by_country_filtered(
             df_reviews_filtered,
@@ -504,14 +508,13 @@ if recomandations_tab.button("List Hotels", use_container_width=True, icon="🥂
             nation_selected=True)
 
     else:
-        # Nation seçilmemişse tüm datayı al
         df_reviews_filtered = df_1.copy()
         top_hotels = top_10_hotels_by_country_filtered(
             df_reviews_filtered,
             Country_name=user_selected_country,
             nation_selected=False)
 
-    # Kullanıcıya otelleri göstermek için bir tablo oluştur
+    
     recomandations_tab.write(f"Top 10 Hotels for {user_selected_country} - Feedback from {user_selected_nation if user_selected_nation else 'All Nations'}")
     recomandations_tab.dataframe(top_hotels, use_container_width=True)
 
